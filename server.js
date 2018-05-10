@@ -86,12 +86,12 @@ app.post("/users", function (req, res) {
                     req.session.id = user._id;
                     req.session.email = user.email;
                     console.log(user.email)
-                    res.render("main");
+                    res.redirect("/secrets");
                 }
             })
-                .catch(error => {
-                    console.log("oops! something went wrong", error);
-                    req.flash("user", error.message);
+                .catch(err => {
+                    console.log("oops! something went wrong", err);
+                    req.flash("user", err.errors[key].message);
                     res.redirect("/");
                 });
         });
@@ -108,11 +108,11 @@ app.post('/sessions', (req, res) => {
                 .then(result => {
                     req.session.id = user._id;
                     req.session.email = user.email;
-                    res.render("main");
+                    res.redirect("/secrets");
                 })
-                .catch(error => {
-                    console.log("oops! something went wrong", error);
-                    req.flash("user", error.message);
+                .catch(err => {
+                    console.log("oops! something went wrong", err);
+                    req.flash("user", err.errors[key].message);
                     res.redirect("/");
                 });
 
@@ -121,14 +121,14 @@ app.post('/sessions', (req, res) => {
 });
 // secrets main page
 app.get("/secrets", function (req, res) {
-    Message.find({}, function (err, secrets) {
-        res.render("index", { secrets: secrets });
+    Secret.find({}, function (err, secrets) {
+        res.render("secrets", { secrets: secrets });
     });
 });
 
 // new Message
 app.post("/newSecret", function (req, res) {
-    console.log("new message");
+    console.log("new secret");
     var secret = new Secret({
         name: req.body.name,
         secret: req.body.secret,
@@ -137,12 +137,12 @@ app.post("/newSecret", function (req, res) {
         if (err) {
             console.log("oops! something went wrong", err);
             for (var key in err.errors) {
-                req.flash('messages', err.errors[key].message);
+                req.flash('secrets', err.errors[key].message);
             }
-            res.redirect("/");
+            res.redirect("/secrets");
         } else {
             console.log("successfully added a secret!");
-            res.redirect("/");
+            res.redirect("/secrets");
         }
     });
 });
@@ -154,12 +154,12 @@ app.post("/newComment/:id", function (req, res) {
             for (var key in err.errors) {
                 req.flash('comments', err.errors[key].comment);
             }
-            res.redirect("/");
+            res.redirect("/secrets");
         }
         else {
             secret.comment.push({ name: req.body.name, comment: req.body.comment });
             secret.save(function (err) {
-                res.redirect("/");
+                res.redirect("/secrets");
             });
 
         }
