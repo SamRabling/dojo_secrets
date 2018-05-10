@@ -27,7 +27,6 @@ app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/secrets");
 // comment schema
 var CommentSchema = new mongoose.Schema({
-    name: { type: String, required: true, minlength: 2 },
     comment: { type: String, required: true, minlength: 10 }
 },
     { timestamps: true });
@@ -37,7 +36,6 @@ var Comment = mongoose.model("Comment");
 
 // secret schema
 var SecretSchema = new mongoose.Schema({
-    name: { type: String, required: true, minlength: 2 },
     secret: { type: String, required: true, minlength: 10 },
     comment: [CommentSchema]
 },
@@ -157,7 +155,7 @@ app.post("/newComment/:id", function (req, res) {
             res.redirect("/secrets");
         }
         else {
-            secret.comment.push({ name: req.body.name, comment: req.body.comment });
+            secret.comment.push({ comment: req.body.comment });
             secret.save(function (err) {
                 res.redirect("/secrets");
             });
@@ -178,7 +176,7 @@ app.get("/secret/:id", function(req, res){
 app.get("/logout", function(req, res){
     req.session.id = null;
     req.session.email = null;
-    res.render("/");
+    res.redirect("/");
 
 })
 
