@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <h1>Dojo Secrets</h1>
     <div class="header">
         <h1>Dojo Screts</h1>
         <a href="/">Dashboard</a>
@@ -19,18 +18,18 @@
 
     <div class="main-content">
 
-        <div class="message">
+        <div class="secret">
             <h4>Secret:
-                <%=secretssecret%>
+                <%=secrets.secret%>
             </h4>
         </div>
 
-    <%for(var j in comments){%>
+    <%for(var j of secrets.comment){%>
         <div class="comment">
-            <p>Comment:<%=comments[j].comment%></p>
+            <p>Comment:<%=j.comment%></p>
         </div>
-    <% } %>
-    <form action="/newComment/<%=secrets[i].id%>" method="post">
+        <% } %>
+    <form action="/newComment/<%=secrets.id%>" method="post">
         Comment:
         <input type="text" name="comment">
         <input type="submit" value="Post Comment">
