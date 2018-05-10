@@ -38,13 +38,14 @@ var Comment = mongoose.model("Comment");
 // secret schema
 var SecretSchema = new mongoose.Schema({
     name: { type: String, required: true, minlength: 2 },
-    message: { type: String, required: true, minlength: 10 },
+    secret: { type: String, required: true, minlength: 10 },
     comment: [CommentSchema]
 },
     { timestamps: true });
 mongoose.model("Secret", SecretSchema);
 
 var Secret = mongoose.model("Secret");
+ //user schema
 var UserSchema = new mongoose.Schema({
     first_name: { type: String, required: true, minlenght: 2 },
     last_name: { type: String, required: true, minlenght: 2 },
@@ -172,6 +173,14 @@ app.get("/secret/:id", function(req, res){
         res.render("show", { secrets: secrets });
     });
 });
+
+//logout
+app.get("/logout", function(req, res){
+    req.session.id = null;
+    req.session.email = null;
+    res.render("/");
+
+})
 
 
 // port
