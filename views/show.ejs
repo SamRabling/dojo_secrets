@@ -20,17 +20,13 @@
     <div class="main-content">
 
         <div class="message">
-            <h4>Name:
-                <%=secrets.name%>
-            </h4>
-            <h4>Message:
+            <h4>Secret:
                 <%=secretssecret%>
             </h4>
         </div>
 
     <%for(var j in comments){%>
         <div class="comment">
-            <p>Name:<%=comments[j].name%></p>
             <p>Comment:<%=comments[j].comment%></p>
         </div>
     <% } %>

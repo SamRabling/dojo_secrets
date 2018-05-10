@@ -147,7 +147,7 @@ app.post("/newSecret", function (req, res) {
 
 // new Comment
 app.post("/newComment/:id", function (req, res) {
-    var secret = Secret.findOne({ _id: req.body.id }, function (err, secret) {
+    var secret = Secret.findOne({ _id: req.params.id }, function (err, secret) {
         if (err) {
             for (var key in err.errors) {
                 req.flash('comments', err.errors[key].comment);
