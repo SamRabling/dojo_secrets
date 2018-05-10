@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Log in and Registration</title>
+</head>
+
+<body>
+
+    <h1>Log In</h1>
+    <% if(messages.session) {%>
+        <% for(var i of messages.session){ %>
+            <p><%= i %></p>
+        <% } %>
+    <% } %>
+
+
+    <form action="/sessions" method="post">
+        Email:
+        <input type="text" name="email"> Password:
+        <input type="password" name="password">
+        <input type="submit" value="submit">
+    </form>
+
+    <h1>Register</h1>
+        <% if(messages.user) {%>
+            <% for(var i of messages.user){ %>
+                <p><%= i %></p>
+            <% } %>
+        <% } %>
+    <form action="/users" method="post">
+        First Name:
+        <input type="text" name="first_name"> Last Name:
+        <input type="text" name="last_name"> Birthday:
+        <input type="date" name="birthday"> Email:
+        <input type="text" name="email"> Password:
+        <input type="password" name="password">
+        <input type="submit" value="submit">
+    </form>
+
+</body>
+
+</html>
